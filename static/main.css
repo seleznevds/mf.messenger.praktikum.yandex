@@ -1,0 +1,389 @@
+html, body{
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+
+.page-container {
+    align-items: center;
+    background:#baddf5;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+}
+
+.centered-block{    
+    background-color: #fff;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 40px;
+    width: 400px;
+}
+
+
+.auth-page-logo {
+    margin-bottom: 1rem;
+}
+
+
+.auth-page-logo  img {
+    border-style: none;
+    border-radius: 10px;
+    margin: 0 auto;
+    display: block;
+}
+
+
+
+.form-element {
+    padding: 0 0 0.5rem;
+    color:#4898e4;
+}
+
+.form-header{
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    color:#4898e4;
+}
+
+
+.text-input {     
+    background-color: #ffffff;
+    box-sizing: border-box;
+    color: #111111;    
+    font-size: 0.75rem;
+    height: 1.9rem;
+    letter-spacing: 0;
+    line-height: 1.1rem;
+    padding: 0.4em 0.75rem;
+    width: 100%;
+    border: 1px solid #d9d9d9;
+}
+
+
+.button{
+    border: 2px solid #0566c0;
+    border-radius: 0;    
+    box-sizing: border-box;    
+    cursor: pointer;    
+    font-size: 0.75rem;
+    font-weight: 500;    
+    user-select: none;
+    background: #0566c0;   
+    color: #ffffff;
+    height: 2rem;
+    padding: 0 1.5rem 0;
+    width: 100%;
+    min-width: 6.25rem; 
+}
+
+.button-link-container{
+    display: flex;
+    justify-content: center;
+}
+
+.button-link{
+    color:#4898e4;
+    font-size: 0.9rem;
+}
+
+.form-error{    
+    color: red;
+    font-size: 0.8rem;
+    padding: 8px 0;
+}
+
+.error-block{
+    text-align: center;
+}
+.error-code{
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+
+.error-description{
+    font-size: 1.5rem;    
+    font-weight: 500;
+    margin: 0.5rem 0;
+}
+
+.error-back-link-container{
+    margin: 0.8rem 0;
+}
+
+.error-back-link{
+    color:#4898e4;
+}
+
+.app-container{
+    display: flex;
+    height: 100vh;
+    min-height: 300px;
+    width: 1400px;
+    min-width: 1000px;
+    margin: 0 auto;
+    background-color: rgb(231, 235, 240);
+    border-right: 1px solid rgb(231, 235, 240);
+    border-left: 1px solid rgb(231, 235, 240);
+    padding: 0;
+}
+
+
+.chat-list {
+    flex-grow: 2;
+    flex-basis: 400px;
+    box-sizing: border-box;
+    padding: 10px 0;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.messages-screen{
+    flex-grow: 5;
+    flex-basis: 1000px;
+    box-sizing: border-box;
+    padding: 10px;
+    overflow-x: hidden;
+}
+
+.chat-item{
+    padding: 15px 8px 15px 10px;
+    display: flex;
+    cursor: pointer;
+}
+
+.chat-item-image-container {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin: 0 5px 0 0;
+    border-radius: 5px;
+}
+
+.chat-item-image {
+    width: 100%;
+    height: 100%;
+}
+
+.chat-item-summary{
+    flex: 1 1;
+}
+
+
+.chat-item-date-container{
+    display: flex;
+    margin: 5px 0 14px 0;
+    justify-content: space-between;
+}
+
+.chat-item-name {
+    margin-right: 5px;
+    max-width: 200px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.chat-item-last-message {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+
+.chat-item-author-name{
+    margin-right: 5px;
+    max-width: 100px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #6da2e1;
+}
+
+
+.chat-item-last-message-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 210px;
+}
+
+
+.chat-item-selected {
+    background-color: dimgray;
+    color: white;
+}
+
+
+
+.messages-screen-inner{
+    box-sizing: border-box;
+    padding-bottom: 70px;
+    position: relative;
+    height: 100%;
+}
+.messages-list{
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
+.messages-date-block{
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+
+.message{
+    margin: 10px 0;
+    display: flex;
+}
+
+
+.message-image-container{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    flex-shrink: 0;
+    margin: 0 15px 0 0;
+    border-radius: 5px;
+}
+
+
+.message-image{
+    width: 100%;
+    height: 100%;
+}
+
+.message-content{
+    flex: 1 1;
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 6px;
+    margin-right: 10px;
+}
+
+.message-name-and-date{
+    display: flex;
+    margin: 5px 0 14px 0;
+    justify-content: space-between;
+}
+
+.message-name{
+    max-width: 500px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.message-date{
+    font-size: 0.8rem;
+}
+
+.message-text{
+    font-size: 0.9rem;  
+}
+
+
+.send-message-form{
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.message-textarea-container{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 60px;
+}
+
+.message-textarea{
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 3px;
+}
+
+
+.message-submit-button{
+    position: absolute;
+    right: 5px;
+    height: 40px;
+    width: 40px;
+    background: white url(img/send.png) center center no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+    border-width: 4px;
+    outline: none;
+    cursor:pointer;
+}
+
+.app-settings{
+    justify-content: center;
+}
+
+.settings-container{
+    width: 700px;
+}
+
+.settings-header{
+    font-size: 2rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.settings{
+    display: flex;
+    justify-content: start;
+}
+
+.settings-avatar{
+   width: 200px;
+}
+
+.settings-fields{
+    flex: 460px;
+    margin-left: 40px;
+}
+
+.settings-avatar-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+    
+}
+
+
+.settings-avatar-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.settings-avatar-change-link{
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #6da2e1;
+    display: block;
+    text-align: center;
+}
