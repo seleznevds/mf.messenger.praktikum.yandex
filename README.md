@@ -19,4 +19,4 @@ TODO
 Приложение будет запущено на  http://localhost:4000/
 
 ## Демо
-https://5ee9dca60c1f020007cd8840--youthful-mccarthy-6c8032.netlify.app/
+https://youthful-mccarthy-6c8032.netlify.app/
