@@ -8,7 +8,6 @@ function htmlToElement(html) {
 export const AppComponent = class {
     constructor(id = `Component_${Math.random()}`, ...rest) {
         this.id = id;
-        rest.pop();
         this.props = rest;
         this.children = [];
         this.eventHandlers = [];
@@ -20,12 +19,14 @@ export const AppComponent = class {
     }
 
     on(eventType, selector, listener, additionalParam) {
-        const childElements = this.el.querySelectorAll(selector);
-
         this.el.addEventListener(eventType, event => {
-            if (Object.values(childElements).includes(event.target)) {
-                listener(event);
-            }
+            const el = event.target.closest(selector);           
+            if(el){                
+                listener({...event, target: el });
+            }    
+
+            event.preventDefault();
+                    
         }, additionalParam);
 
         this.eventHandlers.push({

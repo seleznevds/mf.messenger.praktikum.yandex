@@ -4,9 +4,6 @@ import { template} from './Menu.hbs.js';
 class Menu extends AppComponent{
     constructor(props){
         super(props);
-        this.boom = 1;
-        setTimeout(()=> {this.boom = 2; this.rerender()}, 3000);
-
     }
 
     didMount() {
