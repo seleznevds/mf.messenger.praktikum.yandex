@@ -465,3 +465,9 @@ html, body{
 .menu-button-hidden{
     display: none;
 }
+
+
+.chat-empty-placeholder{
+    text-align: center;
+    margin-top: 20px;
+}

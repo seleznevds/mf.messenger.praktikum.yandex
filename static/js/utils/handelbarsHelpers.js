@@ -1,19 +1,24 @@
 import { AppComponent } from '../classes/AppComponent.js';
 import { formatterTime, formatterDay } from '../utils/timeFormatter.js';
 
-export const addHHandlebarsHelpers = () => {
-    Handlebars.registerHelper('renderComponent', function (Component, parent, ...rest) {
-        if (typeof Component === 'function') {
-            rest.pop();
+export const addHandlebarsHelpers = () => {
+    Handlebars.registerHelper('renderComponent', function (ComponentClass, ...rest) {        
+        const meta = rest.pop();
+        const props = rest.shift() || {};
+        if(meta 
+            && meta.data 
+            && meta.data.root 
+            && meta.data.root.__PARENT_COMPONENT__INSTANCE__
+            && meta.data.root.__PARENT_COMPONENT__INSTANCE__ instanceof AppComponent){
+                props.__PARENT_COMPONENT__INSTANCE__ = meta.data.root.__PARENT_COMPONENT__INSTANCE__;                
+        }
 
-            const comp = new Component(`${Component.name}_${Math.random()}`, ...rest);
-            if (comp instanceof AppComponent) {
-                if (parent instanceof AppComponent) {
-                    parent.addChild(comp);
-                }
-                const content = comp.render();
 
-                return content;
+        if (typeof ComponentClass === 'function') {
+            const comp = new ComponentClass(props);
+            if (comp instanceof AppComponent) {           
+                
+                return comp.render();
             }
         }
     });
@@ -53,7 +58,9 @@ export const addHHandlebarsHelpers = () => {
     });
 
     Handlebars.registerHelper('getFormattedTime', function (timestamp) {
+        console.log(timestamp, '---');
         const messageDate = new Date(timestamp);
+        console.log( messageDate , '===');
         return formatterTime.format(messageDate);
     });
 

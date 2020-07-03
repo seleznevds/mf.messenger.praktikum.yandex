@@ -6,9 +6,14 @@ function htmlToElement(html) {
 }
 
 export const AppComponent = class {
-    constructor(id = `Component_${Math.random()}`, ...rest) {
-        this.id = id;
-        this.props = rest;
+    constructor(props={}) {
+        this.id = `${this.constructor.name || 'Component'}_${Math.random()}_${Math.random()}`;
+        
+        if(props.__PARENT_COMPONENT__INSTANCE__){
+            props.__PARENT_COMPONENT__INSTANCE__.addChild(this);
+        }
+        
+        this.props = props;
         this.children = [];
         this.eventHandlers = [];
         this.el = null;
@@ -20,7 +25,8 @@ export const AppComponent = class {
 
     on(eventType, selector, listener, additionalParam) {
         this.el.addEventListener(eventType, event => {
-            const el = event.target.closest(selector);           
+            const el = event.target.closest(selector);     
+             
             if(el){                
                 listener({...event, target: el });
             }    
@@ -46,20 +52,20 @@ export const AppComponent = class {
     }
 
     render() {
-        return this.renderTemplate();
+        //can be implemented in inherited component
+        return '';
     }
 
     rerender() {
         this.unmount();
         if (this.el) {
-            this.el.replaceWith(htmlToElement(this.renderTemplate()));
+            this.el.replaceWith(htmlToElement(this.render()));
         }
-
         this.mount();
     }
 
     mount() {
-        this.el = document.getElementById(`${this.id}`);
+        this.el = document.querySelector(`[data-component-id="${this.id}"]`);        
         this.children.forEach(comp => comp.mount());
         this.didMount();
     }
@@ -81,8 +87,15 @@ export const AppComponent = class {
         //can be implemented in inherited component
     }
 
-    renderTemplate() {
-        //can be implemented in inherited component
-        return '';
+    renderTemplate(template, context = {}) {
+        const contextWithParent = {
+            ...context,
+            __PARENT_COMPONENT__INSTANCE__:this,
+            __COMPONENT_ID__: this.id            
+        };
+
+
+        const compiledTemplate = Handlebars.compile(template);
+        return compiledTemplate(contextWithParent);
     }
 }

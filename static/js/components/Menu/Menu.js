@@ -25,8 +25,8 @@ class Menu extends AppComponent{
         });        
     }
     
-    renderTemplate(){
-        return template({ id:this.id });
+    render(){
+        return this.renderTemplate(template);
     }    
 }
 

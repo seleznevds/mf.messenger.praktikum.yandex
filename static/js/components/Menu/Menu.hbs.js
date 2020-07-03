@@ -1,4 +1,4 @@
-const html = `<div class="menu-container" id={{id}}>
+export const template = `<div class="menu-container" data-component-id={{__COMPONENT_ID__}}>
 <div class="menu-button"></div>
 <ul class="menu">
     <li class="menu-item"><a href="/">Чат</a></li>
@@ -10,10 +10,3 @@ const html = `<div class="menu-container" id={{id}}>
 </ul>
 </div> 
 `;
-
-const compiledTemplate = Handlebars.compile(html);
-
-
-export const template = (context) => {
-    return compiledTemplate(context);
-};

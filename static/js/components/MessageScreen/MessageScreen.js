@@ -1,20 +1,18 @@
 import {AppComponent} from '../../classes/AppComponent.js';
 import { template} from './MessageScreen.hbs.js';
+import {Message} from '../Message/Message.js'
+
 
 class MessageScreen extends AppComponent{
-    constructor(...props){
-        super(...props);       
-    }
+   
 
     didMount() {
        
     }
     
-    renderTemplate(){
-
-
-
-        return template({ id:this.id,  chats:this.props[0]});
+    render(){
+        const messages = this.props.messages.map(message => ({message}));
+        return this.renderTemplate(template, { Message,  messages:messages, selectedChat:this.props.selectedChat});
     }    
 }
 

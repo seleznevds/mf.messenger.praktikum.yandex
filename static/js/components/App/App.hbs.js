@@ -1,24 +1,13 @@
-const html = `
-<div class="app-container" id={{id}}>
+export const template = `
+<div class="app-container" data-component-id={{__COMPONENT_ID__}}>
 <div class="header">
     <div class="logo"><a href="/"><img src="img/logo.png" width="76" height="51" ></a></div>
-    {{{renderComponent Menu ParentComponent}}}       
+    {{{renderComponent Menu }}}       
 </div>
 
 <div class="main">
-    {{{renderComponent ChatList ParentComponent chatList selectedChat handleChatSelect}}} 
-    {{{renderComponent MessageScreen ParentComponent messages}}}     
+    {{{renderComponent ChatList chatListProps}}} 
+    {{{renderComponent MessageScreen messageScreenProps}}}     
+</div>
 </div>
 `;
-
-
-const compiledTemplate = Handlebars.compile(html);
-
-
-
-
-
-
-export const template = (context) => {
-    return compiledTemplate(context);
-};

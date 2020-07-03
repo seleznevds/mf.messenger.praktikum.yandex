@@ -1,5 +1,5 @@
-const html = `
-<div class="chat-list-container" id={{id}}>
+export const template = `
+<div class="chat-list-container" data-component-id={{__COMPONENT_ID__}}>
         <ul class="chat-list">      
             {{#each chats }}
                 <li class="chat-item {{#ifCond id '==' ../selected}} chat-item-selected {{/ifCond}}" data-id={{id}}>
@@ -21,10 +21,3 @@ const html = `
         </ul>        
     </div>
 `;
-
-
-const compiledTemplate = Handlebars.compile(html);
-
-export const template = (context) => {
-    return compiledTemplate(context);
-};

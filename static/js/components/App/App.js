@@ -1,35 +1,55 @@
-import {AppComponent} from '../../classes/AppComponent.js';
-import {template} from './App.hbs.js';
-import {Menu} from '../Menu/Menu.js';
-import {ChatList} from '../ChatList/ChatList.js';
-import {MessageScreen} from '../MessageScreen/MessageScreen.js';
-import {chatList, messages} from '../../data.js';
- 
+import { AppComponent } from '../../classes/AppComponent.js';
+import { template } from './App.hbs.js';
+import { Menu } from '../Menu/Menu.js';
+import { ChatList } from '../ChatList/ChatList.js';
+import { MessageScreen } from '../MessageScreen/MessageScreen.js';
+import { chatList, messages } from '../../data.js';
 
-class App extends AppComponent{
-    
-    selectedChat = 'trr3trf';
+
+const sortByDateAsc = (first, second) => {
+    return first.date - second.date;
+}
+
+const sortByDateDesc = (first, second) => {
+    return second.date - first.date;
+}
+
+
+class App extends AppComponent {
+
+    messages = [];
+    selectedChat = null;
 
     handleChatSelect = (chatId) => {
         this.selectedChat = chatId;
+        this.messages = (this.selectedChat ? [...messages[this.selectedChat]] : []).sort(sortByDateAsc); 
+
+
         this.rerender();
     };
 
-    renderTemplate(){        
-        return template({
-            Menu,
-            ChatList,
+       
+    render() {
+
+        return this.renderTemplate (template, {
+            ChatList, 
+            chatListProps: {
+                chatList: [...chatList].sort(sortByDateDesc),
+                selectedChat: this.selectedChat,
+                handleChatSelect: this.handleChatSelect,
+            },
+
             MessageScreen,
-            chatList,
-            messages,
-            selectedChat: this.selectedChat,
-            handleChatSelect: this.handleChatSelect,
-            ParentComponent: this,
-            id: this.id
+            messageScreenProps:{
+                messages: this.messages,
+                selectedChat: this.selectedChat,
+            },
+
+            Menu,            
         });
-    }    
+    }
 }
 
-export {App};
-  
+export { App };
+
 
