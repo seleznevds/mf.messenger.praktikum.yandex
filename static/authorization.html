@@ -5,37 +5,11 @@
     <title>Суперчат-авторизация</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <script src='js/handlebars.min-v4.7.6.js'></script>
+    <script src='js/main.js' defer type="module"></script> 
 </head>
 
 <body>
-    <div class="page-container">
-        <div class="centered-block">            
-                <div class="auth-page-logo"><a href="/"><img src="img/logo.png" alt="logo" width="152" height="102"></a></div>                
-                <form>
-                    <div class="form-element form-header">Вход в чат</div>
-                    <div class="form-element">Email</div>
-                    <div class="form-element">
-                        <input type="text" class="text-input" name="email" autocomplete="username"
-                            value="" />
-                        <div class="form-error">Текст ошибки</div>
-                        
-                        </div>
-                    <div class="form-element">Пароль</div>
-                    <div class="form-element">
-                        <input type="password" class="text-input" name="password" autocomplete="current-password"
-                            value="" />
-                    </div>
-                    <div class="form-element">
-                        <button class="button" type="submit">Авторизоваться</button>
-                    </div>
-                    <div class="form-element">
-                        <div class="button-link-container">
-                            <a class="button-link" href="/registration.html">Зарегистрироваться</a>
-                        </div>
-                    </div>
-                </form>            
-        </div>
-    </div>
+    <div class="page-container" data-app-root></div>
 </body>
 </html>

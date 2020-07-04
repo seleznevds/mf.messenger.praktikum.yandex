@@ -57,10 +57,8 @@ export const addHandlebarsHelpers = () => {
         return formatterDay.format(dateWithoutHours);
     });
 
-    Handlebars.registerHelper('getFormattedTime', function (timestamp) {
-        console.log(timestamp, '---');
+    Handlebars.registerHelper('getFormattedTime', function (timestamp) {       
         const messageDate = new Date(timestamp);
-        console.log( messageDate , '===');
         return formatterTime.format(messageDate);
     });
 

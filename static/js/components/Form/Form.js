@@ -1,7 +1,7 @@
 import { AppComponent } from '../../classes/AppComponent.js';
-import { template } from './ChatList.hbs.js';
 
-class ChatList extends AppComponent {
+
+class Form extends AppComponent {
     didMount() {    
         const  handleClick = event => {               
             const el = event.realTarget;
@@ -12,11 +12,11 @@ class ChatList extends AppComponent {
     }
 
     render() {
-        return this.renderTemplate(template, {
+        return this.renderTemplate(this.protemplate, {
             chats: this.props.chatList,
             selected: this.props.selectedChat
         });
     }
 }
 
-export { ChatList };
+export { Form };

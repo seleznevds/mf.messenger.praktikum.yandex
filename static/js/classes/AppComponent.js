@@ -5,14 +5,17 @@ function htmlToElement(html) {
     return template.content.firstChild;
 }
 
+
+//TODO mount  and  unmount works on each rerender
+//create real mount  and  unmount - call only one time per component live
 export const AppComponent = class {
-    constructor(props={}) {
+    constructor(props = {}) {
         this.id = `${this.constructor.name || 'Component'}_${Math.random()}_${Math.random()}`;
-        
-        if(props.__PARENT_COMPONENT__INSTANCE__){
+
+        if (props.__PARENT_COMPONENT__INSTANCE__) {
             props.__PARENT_COMPONENT__INSTANCE__.addChild(this);
         }
-        
+
         this.props = props;
         this.children = [];
         this.eventHandlers = [];
@@ -24,27 +27,37 @@ export const AppComponent = class {
     }
 
     on(eventType, selector, listener, additionalParam) {
-        this.el.addEventListener(eventType, event => {
-            const el = event.target.closest(selector);     
-             
-            if(el){                
-                listener({...event, target: el });
-            }    
+        const eventListenerWrapper = event => {
+            
+            
+            const el = event.target.closest(selector);
+            console.log(selector, event.target, el );
+            if (el) {
+                event.realTarget = el
+                listener(event);
+            }
+        };
 
-            event.preventDefault();
-                    
-        }, additionalParam);
+        this.el.addEventListener(eventType, eventListenerWrapper, additionalParam);
 
         this.eventHandlers.push({
             eventType,
             listener,
-            additionalParam
+            additionalParam,
+            eventListenerWrapper,
         });
-
     }
 
     off(eventType, listener, additionalParam) {
-        this.el.removeEventListener(eventType, listener, additionalParam);
+        const handler = this.eventHandlers.find(handler => handler.eventType === eventType && listener === handler.listener);
+
+        if (handler) {
+            this.el.removeEventListener(eventType, handler.eventListenerWrapper, additionalParam);
+        }
+    }
+
+    _off(eventType, eventListenerWrapper, additionalParam) {
+        this.el.removeEventListener(eventType, eventListenerWrapper, additionalParam);
     }
 
     addChild(component) {
@@ -52,7 +65,7 @@ export const AppComponent = class {
     }
 
     render() {
-        //can be implemented in inherited component
+        //abstract, can be implemented in inherited component
         return '';
     }
 
@@ -65,35 +78,35 @@ export const AppComponent = class {
     }
 
     mount() {
-        this.el = document.querySelector(`[data-component-id="${this.id}"]`);        
+        this.el = document.querySelector(`[data-component-id="${this.id}"]`);
         this.children.forEach(comp => comp.mount());
         this.didMount();
     }
 
     unmount() {
         this.willUnmount();
-        this.eventHandlers.forEach(handler => this.off(handler.eventType,
-            handler.listener,
+        this.eventHandlers.forEach(handler => this._off(handler.eventType,
+            handler.eventListenerWrapper,
             handler.additionalParam));
         this.children.forEach(comp => comp.unmount());
         this.children = [];
+        this.eventHandlers = [];
     }
 
     didMount() {
-        //can be implemented in inherited component
+        //abstract, can be implemented in inherited component
     }
 
     willUnmount() {
-        //can be implemented in inherited component
+        //abstract, can be implemented in inherited component
     }
 
     renderTemplate(template, context = {}) {
         const contextWithParent = {
             ...context,
-            __PARENT_COMPONENT__INSTANCE__:this,
-            __COMPONENT_ID__: this.id            
+            __PARENT_COMPONENT__INSTANCE__: this,
+            __COMPONENT_ID__: this.id        //TODO  place to templates automatically    
         };
-
 
         const compiledTemplate = Handlebars.compile(template);
         return compiledTemplate(contextWithParent);

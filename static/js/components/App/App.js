@@ -1,55 +1,46 @@
 import { AppComponent } from '../../classes/AppComponent.js';
+import { Chat } from '../Chat/Chat.js';
+import { Settings } from '../Settings/Settings.js';
+import { Authorization } from '../Authorization/Authorization.js';
+import { Registration } from '../Registration/Registration.js';
+import { ServerError } from '../ServerError/ServerError.js';
+import { NotFound } from '../NotFound/NotFound.js';
 import { template } from './App.hbs.js';
-import { Menu } from '../Menu/Menu.js';
-import { ChatList } from '../ChatList/ChatList.js';
-import { MessageScreen } from '../MessageScreen/MessageScreen.js';
-import { chatList, messages } from '../../data.js';
-
-
-const sortByDateAsc = (first, second) => {
-    return first.date - second.date;
-}
-
-const sortByDateDesc = (first, second) => {
-    return second.date - first.date;
-}
-
 
 class App extends AppComponent {
+    component = null;
 
-    messages = [];
-    selectedChat = null;
-
-    handleChatSelect = (chatId) => {
-        this.selectedChat = chatId;
-        this.messages = (this.selectedChat ? [...messages[this.selectedChat]] : []).sort(sortByDateAsc); 
-
-
-        this.rerender();
-    };
-
-       
     render() {
+        let addWrapperClassName = false; //TODO don't use, replace with cool css styles 
 
-        return this.renderTemplate (template, {
-            ChatList, 
-            chatListProps: {
-                chatList: [...chatList].sort(sortByDateDesc),
-                selectedChat: this.selectedChat,
-                handleChatSelect: this.handleChatSelect,
-            },
+        switch (window.location.pathname) {//TODO create better router
+            case '/':
+            case '/index.html':
+                this.component = Chat;
+                addWrapperClassName = true;
+                break;
+            case '/settings.html':
+                this.component = Settings; 
+                addWrapperClassName = true;               
+                break;
+           case '/authorization.html':
+                this.component = Authorization;
+                break;
+             case '/registration.html':
+                this.component = Registration;
+                break;
+            case '/500.html':
+                this.component = ServerError;
+                break;
+            default:
+                this.component = NotFound;            
+        }
 
-            MessageScreen,
-            messageScreenProps:{
-                messages: this.messages,
-                selectedChat: this.selectedChat,
-            },
-
-            Menu,            
+        return this.renderTemplate(template, {
+            Component: this.component,
+            addWrapperClassName
         });
     }
 }
 
-export { App };
-
-
+export { App  };

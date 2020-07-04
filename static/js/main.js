@@ -1,10 +1,12 @@
+import { App } from './components/App/App.js';
 
-import {App} from './components/App/App.js';
-import { addHandlebarsHelpers} from './utils/handelbarsHelpers.js';
 
-addHandlebarsHelpers();
+import { addHandlebarsHelpers } from './utils/handelbarsHelpers.js';
+
+let app = new App();
+
 
 const root = document.querySelector('[data-app-root]');
-const app = new App();
+addHandlebarsHelpers();
 app.attach(root);
 app.mount();
