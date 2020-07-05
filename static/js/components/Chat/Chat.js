@@ -21,11 +21,11 @@ class Chat extends AppComponent {
     selectedChat = null;
 
     handleChatSelect = (chatId) => {
-        this.selectedChat = chatId;
-        this.messages = (this.selectedChat ? [...messages[this.selectedChat]] : []).sort(sortByDateAsc); 
-
-
-        this.rerender();
+        if(this.selectedChat !== chatId){
+            this.selectedChat = chatId;
+            this.messages = (this.selectedChat ? [...messages[this.selectedChat]] : []).sort(sortByDateAsc);        
+            this.rerender();
+        }        
     };
 
        
