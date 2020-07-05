@@ -27,11 +27,8 @@ export const AppComponent = class {
     }
 
     on(eventType, selector, listener, additionalParam) {
-        const eventListenerWrapper = event => {
-            
-            
+        const eventListenerWrapper = event => {            
             const el = event.target.closest(selector);
-            console.log(selector, event.target, el );
             if (el) {
                 event.realTarget = el
                 listener(event);

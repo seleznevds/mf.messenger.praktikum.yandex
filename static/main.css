@@ -242,7 +242,7 @@ html, body{
 
 .messages-screen-inner{
     box-sizing: border-box;
-    padding-bottom: 70px;
+    padding-bottom: 100px;
     position: relative;
     height: 100%;
 }
@@ -314,7 +314,7 @@ html, body{
 
 
 .send-message-form{
-    height: 50px;
+    height: 80px;
     width: 100%;
     position: absolute;
     left: 0;

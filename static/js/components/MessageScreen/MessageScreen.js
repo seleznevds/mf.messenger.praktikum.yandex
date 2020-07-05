@@ -1,15 +1,23 @@
 import {AppComponent} from '../../classes/AppComponent.js';
-import { template} from './MessageScreen.hbs.js';
+import { template,  formTemplate } from './MessageScreen.hbs.js';
 import {Message} from '../Message/Message.js'
+import {Form} from '../Form/Form.js';
 
+const messageFormInitialValues = { message: '',};
+
+const messageFormValidationSchema = {
+    message: {
+        regexp: /\S{3,}/i,
+        error: 'Заполните поле. Не меньше 3-х символов.',
+    },   
+};
 
 class MessageScreen extends AppComponent{
    
-
-    didMount() {
-       
+    onSubmit = (values) => {
+        console.log(values);
     }
-    
+      
     render(){
         let dateOfMessageGroup = null;
         let lastAuthorId = null;
@@ -38,14 +46,23 @@ class MessageScreen extends AppComponent{
                 dateOfMessageGroup = dateWithoutHours;
                 composedMessage.message.shouldDisplayDateLabel = true;
                 composedMessage.message.shouldDisplayAuthorBlock = true; //should display author block in new group (grouped by day)
-            }
-
-            
+            }           
 
             return composedMessage;
         });
 
-        return this.renderTemplate(template, { Message,  messages:messages, selectedChat:this.props.selectedChat});
+        return this.renderTemplate(template, { 
+            Message,
+            messages:messages,
+            selectedChat:this.props.selectedChat,
+            Form,
+            formProps:{
+                initialValues: messageFormInitialValues,
+                validationSchema: messageFormValidationSchema,
+                template: formTemplate,
+                onSubmit:this.onSubmit,
+            }
+        });
     }    
 }
 

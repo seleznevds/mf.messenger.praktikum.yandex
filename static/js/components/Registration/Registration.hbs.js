@@ -1,6 +1,5 @@
-export const template = `
-<div class="centered-block" data-component-id={{__COMPONENT_ID__}}>            
-                <div class="auth-page-logo"><a href="/"><img src="img/logo.png" alt="logo" width="152" height="102"></a></div>                
+export const formTemplate = `
+<div class="auth-page-logo"><a href="/"><img src="img/logo.png" alt="logo" width="152" height="102"></a></div>                
                 <form> 
                     <div class="form-element form-header">Вход в чат</div>
                     <div class="form-element">Email</div>
@@ -32,5 +31,10 @@ export const template = `
                         </div>
                     </div>
                 </form>            
- </div>
 `;
+
+
+export const template = `
+<div class="centered-block" data-component-id={{__COMPONENT_ID__}}>     
+    {{{renderComponent Form formProps}}} 
+</div>`;

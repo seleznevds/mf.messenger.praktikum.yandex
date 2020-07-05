@@ -1,12 +1,12 @@
-export const validate = (values, schema) => {
-    const valuesMap = values.reduce((obj, [key, value]) => {
+export const validate = (valuesForValidating, schema, allValues = valuesForValidating) => {
+    const valuesMap = allValues.reduce((obj, [key, value]) => {
         return {
             ...obj,
             [key]: value
         };
     }, {});
 
-    const errors = values.reduce((errors, [key, value]) => {
+    const errors = valuesForValidating.reduce((errors, [key, value]) => {
         const validator = schema[key];
         if (validator) {
             if (validator.func) {
